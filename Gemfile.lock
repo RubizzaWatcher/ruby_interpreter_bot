@@ -1,0 +1,52 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    equalizer (0.0.11)
+    evalhook (0.6.0)
+      partialruby (~> 0.3)
+      sexp_processor (~> 4.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    getsource (0.2.2)
+    ice_nine (0.11.2)
+    multipart-post (2.0.0)
+    partialruby (0.3.0)
+      ruby2ruby (~> 2)
+      ruby_parser (~> 3)
+    ruby2ruby (2.3.0)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.8.2)
+      sexp_processor (~> 4.1)
+    sexp_processor (4.7.0)
+    shikashi (0.6.0)
+      evalhook (>= 0.6.0)
+      getsource (>= 0.1.0)
+    telegram-bot-ruby (0.5.2)
+      faraday
+      virtus
+    thread_safe (0.3.5)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
+
+PLATFORMS
+  ruby
+  x86-mingw32
+
+DEPENDENCIES
+  shikashi
+  telegram-bot-ruby
+
+BUNDLED WITH
+   1.15.1
