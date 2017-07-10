@@ -5,7 +5,6 @@ require 'net/http'
 
 include Shikashi
 module Shikashi
-  # Class for allowing methods in sandbox
   class Privileges
     def allow_methods(*method_names)
       method_names.each do |mn|
@@ -17,7 +16,6 @@ module Shikashi
   end
 end
 
-# Class containg all bot functionality
 class TestBot
   def initialize(token)
     @token = token
@@ -26,7 +24,7 @@ class TestBot
     @allowed_const_read = []
     @allowed_methods = []
     # method whitelist
-    methods = Integer.methods + Integer.instance_methods + Array.methods + Array.instance_methods + String.methods + String.instance_methods + Net::HTTP.methods + Net::HTTP.instance_methods + Math.methods+Math.instance_methods
+    methods = Integer.methods + Integer.instance_methods + Array.methods + Array.instance_methods + String.methods + String.instance_methods + Net::HTTP.methods + Net::HTTP.instance_methods + Math.methods + Math.instance_methods
     methods.each do |method|
       @allowed_methods << method
     end
@@ -59,7 +57,9 @@ class TestBot
       @bot = bot
       bot.listen do |message|
         @last_message = message
+
         puts message
+
         case message.text
         when %r{\A\/start}
           bot.api.send_message(chat_id: message.chat.id, text: "Привет, #{message.from.first_name}. Начинаю работать! Напиши /help для подробной информации.")
@@ -67,20 +67,22 @@ class TestBot
           bot.api.send_message(chat_id: message.chat.id, text: "Пока, #{message.from.first_name}. Возвращайся снова!")
         when %r{\A\/help}
           bot.api.send_message(chat_id: message.chat.id, text:
-              "/run\nФормат кода: /run {code}\nДоступные методы: times, puts, print, each, p \nПример: \n/run 3.times{|x| puts x*x}")
+              "/run\nФормат кода: /run {code}\nДоступные методы: times, puts, print, each, p \nПример: \n/run 3.times{|x| puts x*x}\n/run puts 'Я хоть простой бот, но способен на многое.'")
         when %r{\A\/run}
-          else
-            message.text.slice! '/run'
-          end
+          message.text.slice! '/run'
           begin
             stdout = with_captured_stdout do
               s = Sandbox.new
               priv = Privileges.new
+
               priv.allow_const_read(*@allowed_const_read)
               priv.allow_methods(*@allowed_methods)
+
               s.run(priv, message.text, timeout: 3)
             end
+
             puts(stdout)
+
             send_reply("Result:\n#{stdout}")
           rescue => ex
             send_reply("Error:\n#{ex}")
@@ -89,6 +91,7 @@ class TestBot
       end
     end
   end
+end
 
 token = File.read('token.txt').chomp!
 test_bot = TestBot.new token
