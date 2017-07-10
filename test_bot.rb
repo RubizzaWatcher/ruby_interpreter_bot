@@ -69,8 +69,6 @@ class TestBot
           bot.api.send_message(chat_id: message.chat.id, text:
               "/run\nФормат кода: /run {code}\nДоступные методы: times, puts, print, each, p \nПример: \n/run 3.times{|x| puts x*x}")
         when %r{\A\/run}
-          if message.text =~ %r{\A\/run@Energy0124TestBot}
-            message.text.slice! '/run@Energy0124TestBot'
           else
             message.text.slice! '/run'
           end
@@ -91,7 +89,6 @@ class TestBot
       end
     end
   end
-end
 
 token = File.read('token.txt').chomp!
 test_bot = TestBot.new token
